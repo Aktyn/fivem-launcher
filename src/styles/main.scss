@@ -1,0 +1,141 @@
+@font-face {
+    font-family: RobotoRegular;
+    font-display: auto;
+    src: url('./Roboto-Regular.ttf');
+}
+
+/*cubic-bezier(.87,-.41,.19,1.44)*/
+/*cubic-bezier(.36,.07,.19,.97)*/
+
+body, html, textarea, input, button, div {
+	padding: 0px;
+    margin: 0px;
+	font-size: 12px;
+
+	font-family: RobotoRegular, Arial, serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    box-sizing: border-box;
+    vertical-align: middle;
+
+    text-shadow: 0px 1px 1px #0003;
+}
+
+body, html {
+    background-color: #455A64;
+    color: #fff;
+    text-align: center;
+}
+
+textarea, input {
+    border: 1px solid rgb(169, 169, 169);
+    background: #fff;
+    outline: none;
+    padding: 2px 5px;
+    color: #455a64;
+    font-size: 13px;
+
+    &:focus {
+    	border-color: #e57373;
+    }
+}
+
+hr {
+	border: none;
+	height: 1px;
+	background: #90A4AE;
+	margin: 15px 0px;
+}
+
+button {
+	outline: none;
+	
+	border: none;
+	/*1px solid #CFD8DC;*/
+    line-height: 100%;
+	font-weight: bold;
+	background: #fff;
+	border-radius: 4px;
+	padding: 5px 10px;
+	color: #455a64;
+	box-shadow: 0px 1px 3px #0008;
+
+	&:not(:disabled) {
+		cursor: pointer;
+
+		&:hover {
+			color: #607D8B;
+			box-shadow: 0px 2px 3px #0008;
+		}
+
+		&:active {
+			color: #f44336;
+			box-shadow: 0px 0px 3px #0008;
+		}
+	}
+
+	&:disabled {
+		background-color: #B0BEC5;
+		box-shadow: none;
+		// font-weight: normal;
+	}
+}
+
+.close-btn, .menu-btn {
+	background-size: 60%;
+	background-color: #607D8B;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	height: 25px;
+	width: 25px;
+	border-radius: 25px;
+	padding: 0px;
+
+	&:hover {
+		background-color: #78909C;
+	}
+
+	&:active {
+		background-color: #e57373;
+	}
+}
+
+/*main div*/
+#main {
+	display: block;
+	position: relative;
+	max-height: 100vh;
+
+	& > .menu-container, & > .game-container {
+		box-sizing: border-box;
+		position: absolute;
+		left: 0px;
+		right: 0px;
+		top: 0px;
+	}
+}
+
+/* SCROLLBARS */
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #37474F; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #00838F; 
+    border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #00ACC1; 
+}

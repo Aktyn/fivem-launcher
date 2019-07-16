@@ -1,2 +1,1 @@
-# fivem-launcher
-FiveM launcher
+#FiveM launcher
