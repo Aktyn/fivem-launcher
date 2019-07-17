@@ -31,14 +31,14 @@ app.on('ready', async () => {
 	    app.quit();
 	});
 
-	ipcMain.on('synchronous-message', (event, data) => {
+	/*ipcMain.on('synchronous-message', (event, data) => {
 		//console.log(arg);
-		/*if(arg === 'terminate') {
+		if(arg === 'terminate') {
 			console.log('terminating');
 			window.close();
 			app.quit();
-		}*/
-	});
+		}
+	});*/
 
 	try {
 		window.loadFile(`${__dirname}/dist/index.html`).catch(console.error);

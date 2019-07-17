@@ -1,0 +1,236 @@
+main {
+	@keyframes fade-in {
+		0% {opacity: 0}
+		100% {opacity: 1}
+	}
+	@keyframes fade-out {
+		0% {opacity: 1}
+		100% {opacity: 0}
+	}
+	@keyframes fade-zoom-out {
+		0% {
+			transform: scale(1);
+			opacity: 1;
+		}
+		100% {
+			transform: scale(1.5);
+			opacity: 0;
+		}
+	}
+	@keyframes pop-in {
+		0%  {
+			opacity: 0;
+			transform: scale(0);
+		}
+		100%{
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+	
+	$fadingSpeed: 0.5s;
+	
+	$circleBtnSize: 50px;
+	$circleBtnMargin: 5px;
+	
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-content: stretch;
+	
+	max-height: 100vh;
+	max-width: 100vw;
+	overflow: hidden;
+	
+	position: relative;
+	background-color: #78909C;
+	
+	.left-column, .right-column	{
+		height: 100vh;
+		width: 100%;
+	}
+	
+	.left-column {
+		display: grid;
+		grid-template-columns: auto;
+		grid-template-rows: fit-content(100%) auto fit-content(100%);
+	}
+	
+	.right-column {
+		display: grid;
+		grid-template-columns: auto;
+		grid-template-rows: auto fit-content(100%);
+	}
+	
+	.author {
+		text-align: left;
+		font-size: 10px;
+	}
+	
+	.error {
+		color: #ef9a9a;
+		font-weight: bold;
+	}
+	
+	.circle-btn {
+		width: $circleBtnSize;
+		height: $circleBtnSize;
+		border-radius: $circleBtnSize;
+		margin: $circleBtnMargin;
+		background-color: #fff;
+		font-size: $circleBtnSize/2;
+		font-weight: normal;
+		
+		opacity: 0;
+		animation: pop-in 0.5s cubic-bezier(.87,-.41,.19,1.44) forwards;
+	}
+	
+	& > .settings-container {
+		display: block;
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+		
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		
+		$background: #26A69A;
+		$rippleAnimDuration: 0.8s;
+		
+		&.fading {
+			animation: fade-zoom-out $fadingSpeed cubic-bezier(.36,.07,.19,.97) forwards;
+		}
+		
+		& > .settings {
+			display: block;
+			
+			z-index: 2;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			
+			width: 100%;
+			height: 100%;
+			background-color: $background;
+			
+			opacity: 0;
+			
+			animation: fade-in $fadingSpeed ($rippleAnimDuration - $fadingSpeed) ease-in-out forwards;
+			
+			& > .closer {
+				position: absolute;
+				right: 0px;
+				top: 0px;
+				animation-delay: ($rippleAnimDuration - $fadingSpeed);
+			}
+			
+			.servers-options {
+				display: grid;
+				max-height: 100vh;
+				width: 100%;
+				grid-template-columns: auto;
+				grid-template-rows: 30px auto #{$circleBtnSize + $circleBtnMargin*2};
+				align-items: center;
+				justify-content: stretch;
+				
+				& > .scrollable-list {
+					overflow-x: hidden;
+					overflow-y: auto;
+					max-height: calc(100vh - 30px - #{$circleBtnSize + $circleBtnMargin*2});
+					width: 100%;
+				}
+				
+				.adder {
+					margin: $circleBtnMargin auto;
+					animation-delay: ($rippleAnimDuration - $fadingSpeed + 0.1s);
+				}
+			}
+		}
+		
+		& > .ripple {
+			z-index: 1;
+			
+			$size: calc(100vh + 100vw);
+			
+			content: "";
+			display: block;
+			position: absolute;
+			
+			//left: ($circleBtnSize + $circleBtnMargin)/2;
+			//top: ($circleBtnSize + $circleBtnMargin)/2;
+			width: $size;
+			height: $size;
+			border-radius: $size;
+			
+			background-color: $background;
+			
+			transform: translate(-50%, -50%) scale(1);
+			
+			animation: ripple $rippleAnimDuration cubic-bezier(.36,.07,.19,.97) forwards,
+				fade-out $fadingSpeed $rippleAnimDuration ease-in-out forwards;
+			
+			@keyframes ripple {
+				0% {
+					transform: translate(-50%, -50%) scale(0);
+					opacity: 0.5;
+				}
+				50% {
+					opacity: 1;
+				}
+				100% {
+					transform: translate(-50%, -50%) scale(1.5);
+					opacity: 1;
+				}
+			}
+		}
+	}
+	
+	.add-server-form {
+		margin: $circleBtnMargin auto;
+		
+		& > * {
+			//display: block;
+			margin: 5px auto;
+			min-width: 100px;
+		}
+		
+		span {
+			font-weight: bold;
+			margin: 0px 3px;
+		}
+		
+		input {
+			background-color: #B2DFDB40;
+			padding: 4px;
+			border-radius: 0px;
+			color: #fff;//#004D40;
+			font-weight: normal;
+			text-align: center;
+			border: none;
+			border-bottom: 2px solid #80CBC4;
+			overflow: visible;
+			
+			transition: border-color 0.4s ease-in-out, background-color 0.4s ease-in-out;
+			
+			&:focus {
+				border-color: #80CBC4;
+				background-color: #B2DFDB00;
+				
+				&::placeholder {
+					color: #80CBC4;
+				}
+			}
+			
+			&.incorrect {
+				border-color: #e57373;
+				//border-top: 1px solid #e57373;
+			}
+			
+			&::placeholder {
+				color: #00897B;
+				text-shadow: none;
+				transition: color 0.4s ease-in-out;
+			}
+		}
+	}
+}

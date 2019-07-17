@@ -42,7 +42,7 @@ module.exports = {
 				}
 			})
 		],
-		splitChunks: {
+		/*splitChunks: {
 			//chunks: 'all',
 			automaticNameDelimiter: '-',
 			
@@ -57,7 +57,7 @@ module.exports = {
 					enforce: true,
 				}
 			}
-		}
+		}*/
 	},
 	
 	module: {
@@ -152,7 +152,7 @@ module.exports = {
 		}),
 		new HtmlWebpackPlugin({
 			hash: isDevelopment,
-			//favicon: isDevelopment ? './src/img/favicon.png' : undefined,
+			favicon: './icon.png',
 			title: 'FiveM Launcher',
 			minify: !isDevelopment,
 			template: './src/index.html',

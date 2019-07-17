@@ -1,0 +1,15 @@
+.server-item {
+	display: inline-block;
+	background-color: green;
+	margin: 4px 0px;
+	
+	&.current {
+	
+	}
+	
+	.remove-btn {
+		width: 20px;
+		height: 20px;
+		background-color: red;
+	}
+}

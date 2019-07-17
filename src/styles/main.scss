@@ -126,16 +126,17 @@ button {
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #37474F; 
+    background: #0001;
+	border-radius: 8px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #00838F; 
+    background: #fff2;
     border-radius: 8px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #00ACC1; 
+    background: #fff4;
 }
