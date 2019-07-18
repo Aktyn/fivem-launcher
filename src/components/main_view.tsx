@@ -95,8 +95,11 @@ export default class MainView extends React.Component<any, MainViewState> {
 			else
 				details_cache.set(api_url, {details: null, update_timestamp: Date.now()});
 			
-			let info = JSON.parse( await getJSON(`${api_url}/info.json`) );
-			let players: PlayerInfo[] = JSON.parse( await getJSON(`${api_url}/players.json`) );
+			let info = await getJSON(`${api_url}/info.json`);
+			//console.log(info);
+			//JSON.parse( await getJSON(`${api_url}/info.json`) );
+			let players: PlayerInfo[] = await getJSON(`${api_url}/players.json`);
+				//JSON.parse( await getJSON(`${api_url}/players.json`) );
 			//console.log(info['icon']);
 			
 			const details: ServerDetails = {

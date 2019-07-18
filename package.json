@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "webpack-dev-server --config ./webpack.config.js",
 		"publish": "set NODE_ENV=production&& webpack --config ./webpack.config.js -p",
+		"run_electron": "set NODE_ENV=dev && electron ./main",
 		"preview": "npm run publish && set NODE_ENV=dev && electron ./main",
 		"electron:rebuild": "npm rebuild --runtime=electron --target=3.0.7 --disturl=https://atom.io/download/atom-shell --abi=64",
 		"pack": "npm run publish && set NODE_ENV=production&& electron-builder --win --x64 portable"
@@ -29,10 +30,12 @@
 	"dependencies": {
 		"@types/electron-json-storage": "^4.0.0",
 		"@types/node": "^10.12.11",
+		"@types/node-fetch": "^2.3.7",
 		"@types/react": "^16.7.11",
 		"@types/react-dom": "^16.0.11",
 		"@types/react-router": "^4.4.1",
 		"@types/react-router-dom": "^4.3.1",
+		"node-fetch": "^2.6.0",
 		"react": "^16.6.3",
 		"react-dom": "^16.6.3",
 		"react-router": "^4.3.1",
