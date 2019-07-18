@@ -1,0 +1,105 @@
+@import "animations";
+@import "parameters";
+
+.settings-container {
+	display: block;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	
+	color: #fff;
+	
+	$background: #26A69A;
+	$rippleAnimDuration: 0.8s;
+	
+	&.fading {
+		animation: fade-zoom-out $fadingSpeed cubic-bezier(.36, .07, .19, .97) forwards;
+	}
+	
+	& > .settings {
+		display: block;
+		
+		z-index: 2;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		
+		width: 100%;
+		height: 100%;
+		background-color: $background;
+		
+		opacity: 0;
+		
+		animation: fade-in $fadingSpeed ($rippleAnimDuration - $fadingSpeed) ease-in-out forwards;
+		
+		& > .closer {
+			position: absolute;
+			right: 0px;
+			top: 0px;
+			animation-delay: ($rippleAnimDuration - $fadingSpeed);
+		}
+		
+		.servers-options {
+			display: grid;
+			max-height: 100vh;
+			width: 100%;
+			grid-template-columns: auto;
+			grid-template-rows: 30px auto 100px;
+			align-items: center;
+			justify-content: center;
+			
+			& > .scrollable-list {
+				overflow-x: hidden;
+				overflow-y: auto;
+				max-height: calc(100vh - 30px - 100px);
+				width: 100%;
+			}
+			
+			.adder {
+				margin: $circleBtnMargin auto;
+				animation-delay: ($rippleAnimDuration - $fadingSpeed + 0.1s);
+			}
+		}
+	}
+	
+	& > .ripple {
+		z-index: 1;
+		
+		$size: calc(100vh + 100vw);
+		
+		content: "";
+		display: block;
+		position: absolute;
+		
+		//left: ($circleBtnSize + $circleBtnMargin)/2;
+		//top: ($circleBtnSize + $circleBtnMargin)/2;
+		width: $size;
+		height: $size;
+		border-radius: $size;
+		
+		background-color: $background;
+		
+		transform: translate(-50%, -50%) scale(1);
+		
+		animation: ripple $rippleAnimDuration cubic-bezier(.36, .07, .19, .97) forwards,
+		fade-out $fadingSpeed $rippleAnimDuration ease-in-out forwards;
+		
+		@keyframes ripple {
+			0% {
+				transform: translate(-50%, -50%) scale(0);
+				opacity: 0.5;
+			}
+			50% {
+				opacity: 1;
+			}
+			100% {
+				transform: translate(-50%, -50%) scale(1.5);
+				opacity: 1;
+			}
+		}
+	}
+}

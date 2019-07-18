@@ -6,10 +6,9 @@ let is_dev = (process.env.NODE_ENV || '').trim() === 'dev';
 app.on('ready', async () => {
 	const window = new BrowserWindow({
 		icon: './icon.png',
-		//width: 800,
-		//height: 600,
-		height: 437,
-		useContentSize: true,
+		width: 600,
+		height: 500,
+		// useContentSize: true,
 		title: 'FiveM Launcher',
 		center: true,
 		autoHideMenuBar: true,
@@ -18,7 +17,7 @@ app.on('ready', async () => {
 			nodeIntegration: true,
 			// contextIsolation: true,
 			// sandbox: true,
-			webSecurity: true
+			webSecurity: true//true
 		},
 	});
 	/*setTimeout(async () => {
@@ -39,6 +38,10 @@ app.on('ready', async () => {
 			app.quit();
 		}
 	});*/
+	ipcMain.on('close-app', () => {
+		console.log('Closing');
+		app.quit();
+	});
 
 	try {
 		window.loadFile(`${__dirname}/dist/index.html`).catch(console.error);

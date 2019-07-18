@@ -1,15 +1,119 @@
 .server-item {
-	display: inline-block;
-	background-color: green;
-	margin: 4px 0px;
+	$size: 28px;
+	$indicatorSize: 20px;
 	
-	&.current {
+	background-color: #e57373;
+	border-bottom: 3px solid #0003;
+	box-sizing: border-box;
+
+	height: $size;
+	line-height: $size - 3px;
+	min-width: 242px;
+	display: grid;
+	grid-template-columns: fit-content(100%) auto fit-content(100%) fit-content(100%) fit-content(100%);
+	align-items: center;
+	grid-column-gap: 5px;
 	
+	padding: 0px 5px 0px 10px;
+	margin: 6px $indicatorSize 3px;
+	border-radius: $size;
+	
+	transition: background-color 0.3s ease-in-out;
+	
+	&:not(.prompt) {
+		cursor: pointer;
+		&:hover {
+			background-color: #ef9a9a;
+		}
+		
+		&.online {
+			background-color: #8BC34A;
+			
+			&:hover {
+				background-color: #9CCC65;
+			}
+		}
+	}
+	
+	&.prompt {
+		padding: 0px 0px;
+	}
+	
+	position: relative;
+	&::before {
+		content: "⮞";
+		display: inline-block;
+		position: absolute;
+		//height: $indicatorSize;
+		//width: $indicatorSize;
+		font-size: 20px;
+		color: #80CBC4;
+		left: 0px;
+		opacity: 0;
+		//cubic-bezier(.36, .07, .19, .97)
+		transition: opacity 0.4s ease-in-out, transform 0.4s cubic-bezier(.87, -.41, .19, 1.44);
+	}
+	
+	&.current::before {
+		transform: translateX(-$indicatorSize);
+		opacity: 1;
+	}
+	
+	& > * {
+		margin: 0px;
+		padding: 0px;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	
+	img, .icon-span {
+		max-height: $size - 3px;
+	}
+	
+	button {
+		background-color: transparent;
+		padding: 0px;
+		box-shadow: none !important;
+		color: #fff;
+		
+		&:hover {
+			color: #fff;
+		}
 	}
 	
 	.remove-btn {
 		width: 20px;
 		height: 20px;
-		background-color: red;
+		font-weight: normal;
+		font-size: 14px;
+		
+		opacity: 0.61;
+		
+		&:hover {
+			color: #fff;
+			opacity: 1;
+			transform: scale(1.2);
+		}
+	}
+	
+	.remove-prompt {
+		grid-column: 1 / span 5;
+		
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		align-items: stretch;
+		justify-content: stretch;
+		
+		& > * {//buttons
+			background-color: transparent;
+			height: $size;
+			line-height: $size;
+			border-radius: $size;
+			padding: 0px 15px;
+			
+			&:hover {
+				background-color: #fff2;
+			}
+		}
 	}
 }

@@ -1,0 +1,20 @@
+@import "animations";
+@import "parameters";
+
+.error {
+	color: #ef9a9a;
+	font-weight: bold;
+}
+
+.circle-btn {
+	width: $circleBtnSize;
+	height: $circleBtnSize;
+	border-radius: $circleBtnSize;
+	margin: $circleBtnMargin;
+	background-color: #fff;
+	font-size: $circleBtnSize/2;
+	font-weight: normal;
+	
+	opacity: 0;
+	animation: pop-in 0.5s cubic-bezier(.87, -.41, .19, 1.44) forwards;
+}

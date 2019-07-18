@@ -1,40 +1,9 @@
+@import "animations";
+@import "parameters";
+
 main {
-	@keyframes fade-in {
-		0% {opacity: 0}
-		100% {opacity: 1}
-	}
-	@keyframes fade-out {
-		0% {opacity: 1}
-		100% {opacity: 0}
-	}
-	@keyframes fade-zoom-out {
-		0% {
-			transform: scale(1);
-			opacity: 1;
-		}
-		100% {
-			transform: scale(1.5);
-			opacity: 0;
-		}
-	}
-	@keyframes pop-in {
-		0%  {
-			opacity: 0;
-			transform: scale(0);
-		}
-		100%{
-			opacity: 1;
-			transform: scale(1);
-		}
-	}
-	
-	$fadingSpeed: 0.5s;
-	
-	$circleBtnSize: 50px;
-	$circleBtnMargin: 5px;
-	
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr fit-content(100%) 1fr;
 	justify-content: stretch;
 	
 	max-height: 100vh;
@@ -42,7 +11,15 @@ main {
 	overflow: hidden;
 	
 	position: relative;
-	background-color: #78909C;
+	//background-color: #263238;
+	background: linear-gradient(45deg, #37474F 0%, #263738 100%);
+	color: #CFD8DC;
+	
+	.columns-separator {
+		width: 1px;
+		background-color: #37474F;
+		margin: 25px 5px;
+	}
 	
 	.left-column, .right-column	{
 		height: 100vh;
@@ -52,137 +29,119 @@ main {
 	.left-column {
 		display: grid;
 		grid-template-columns: auto;
-		grid-template-rows: fit-content(100%) auto fit-content(100%);
+		grid-template-rows: fit-content(100%) auto auto fit-content(100%);
+		align-items: stretch;
+		
+		.servers-btn {
+			width: 100%;
+			padding: 10px;
+			border-radius: 0px 0px 80px 80px;
+			background-color: #26A69A;
+			color: #fff;
+			
+			transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+			
+			&:hover {
+				color: #fff;
+				background-color: #4DB6AC;
+			}
+		}
+		
+		.server-info {
+			padding-top: 20px;
+			font-size: 14px;
+			
+			& > * {
+				font-size: inherit;
+				display: block;
+			}
+			
+			.offline {
+				color: #e57373;
+				font-weight: bold;
+				font-size: 17px;
+				margin: 10px 0px;
+				
+				opacity: 0;
+				animation: fade-in 0.6s 1s ease-in-out forwards;
+			}
+			
+			.address {
+				font-weight: bold;
+				font-size: 16px;
+				margin: 15px 0px;
+				text-shadow: none;
+			}
+			
+			img {
+				max-height: 128px;
+			}
+		}
+		
+		.connect-btn {
+			text-decoration: none;
+			color: #fff;
+			font-weight: bold;
+			font-size: 16px;
+			border: 1px solid #fff;
+			padding: 10px 15px 10px 20px;
+			border-radius: 40px;
+			background-color: #fff0;
+			box-shadow: 0px 1px 4px #0008;
+			transition: background-color 0.4s cubic-bezier(.36, .07, .19, .97),
+				color 0.4s cubic-bezier(.36, .07, .19, .97), border-color 0.4s cubic-bezier(.36, .07, .19, .97);
+			
+			animation: pop-in 0.5s cubic-bezier(.87, -.41, .19, 1.44) forwards;
+			
+			&:hover {
+				background-color: #fff;
+				color: #e57373;
+				border-color: #e57373;
+			}
+		}
 	}
 	
 	.right-column {
-		display: grid;
+		/*display: grid;
 		grid-template-columns: auto;
-		grid-template-rows: auto fit-content(100%);
+		grid-template-rows: auto fit-content(100%);*/
+		max-height: 100%;
+		overflow-y: auto;
+		
+		.players-list {//table
+			border-collapse: collapse;
+			width: 100%;
+			
+			thead {
+				height: 30px;
+				font-weight: bold;
+				//border-bottom: 1px solid #37474F;
+			}
+			
+			tbody {
+				text-align: left;
+				
+				tr > td:not(:nth-child(2)) {
+					color: #B0BEC5;
+				}
+			}
+			
+			tr > td, tr > th {
+				padding: 5px 5px;
+				font-size: 13px;
+			}
+			
+			tr:not(:last-child) {
+				border-bottom: 1px solid #37474F;
+			}
+		}
 	}
 	
 	.author {
 		text-align: left;
 		font-size: 10px;
-	}
-	
-	.error {
-		color: #ef9a9a;
-		font-weight: bold;
-	}
-	
-	.circle-btn {
-		width: $circleBtnSize;
-		height: $circleBtnSize;
-		border-radius: $circleBtnSize;
-		margin: $circleBtnMargin;
-		background-color: #fff;
-		font-size: $circleBtnSize/2;
-		font-weight: normal;
-		
-		opacity: 0;
-		animation: pop-in 0.5s cubic-bezier(.87,-.41,.19,1.44) forwards;
-	}
-	
-	& > .settings-container {
-		display: block;
-		width: 100vw;
-		height: 100vh;
-		overflow: hidden;
-		
-		position: absolute;
-		left: 0px;
-		top: 0px;
-		
-		$background: #26A69A;
-		$rippleAnimDuration: 0.8s;
-		
-		&.fading {
-			animation: fade-zoom-out $fadingSpeed cubic-bezier(.36,.07,.19,.97) forwards;
-		}
-		
-		& > .settings {
-			display: block;
-			
-			z-index: 2;
-			position: absolute;
-			left: 0px;
-			top: 0px;
-			
-			width: 100%;
-			height: 100%;
-			background-color: $background;
-			
-			opacity: 0;
-			
-			animation: fade-in $fadingSpeed ($rippleAnimDuration - $fadingSpeed) ease-in-out forwards;
-			
-			& > .closer {
-				position: absolute;
-				right: 0px;
-				top: 0px;
-				animation-delay: ($rippleAnimDuration - $fadingSpeed);
-			}
-			
-			.servers-options {
-				display: grid;
-				max-height: 100vh;
-				width: 100%;
-				grid-template-columns: auto;
-				grid-template-rows: 30px auto #{$circleBtnSize + $circleBtnMargin*2};
-				align-items: center;
-				justify-content: stretch;
-				
-				& > .scrollable-list {
-					overflow-x: hidden;
-					overflow-y: auto;
-					max-height: calc(100vh - 30px - #{$circleBtnSize + $circleBtnMargin*2});
-					width: 100%;
-				}
-				
-				.adder {
-					margin: $circleBtnMargin auto;
-					animation-delay: ($rippleAnimDuration - $fadingSpeed + 0.1s);
-				}
-			}
-		}
-		
-		& > .ripple {
-			z-index: 1;
-			
-			$size: calc(100vh + 100vw);
-			
-			content: "";
-			display: block;
-			position: absolute;
-			
-			//left: ($circleBtnSize + $circleBtnMargin)/2;
-			//top: ($circleBtnSize + $circleBtnMargin)/2;
-			width: $size;
-			height: $size;
-			border-radius: $size;
-			
-			background-color: $background;
-			
-			transform: translate(-50%, -50%) scale(1);
-			
-			animation: ripple $rippleAnimDuration cubic-bezier(.36,.07,.19,.97) forwards,
-				fade-out $fadingSpeed $rippleAnimDuration ease-in-out forwards;
-			
-			@keyframes ripple {
-				0% {
-					transform: translate(-50%, -50%) scale(0);
-					opacity: 0.5;
-				}
-				50% {
-					opacity: 1;
-				}
-				100% {
-					transform: translate(-50%, -50%) scale(1.5);
-					opacity: 1;
-				}
-			}
-		}
+		color: #78909C;
+		padding: 3px;
 	}
 	
 	.add-server-form {

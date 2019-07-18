@@ -18,6 +18,10 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 	},
 	mode: isDevelopment ? 'development' : 'production',
+	target: 'electron-renderer',
+	node: {
+		fs: "empty"
+	},
 	devtool: isDevelopment && "source-map",
 	devServer: {
 		historyApiFallback: true,

@@ -70,5 +70,8 @@
 		"directories": {
 			"output": "electron_dist"
 		}
+	},
+	"browser": {
+		"fs": false
 	}
 }

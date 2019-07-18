@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './styles/main.scss';
+import './styles/common.scss';
 
 import MainView from "./components/main_view";
 
