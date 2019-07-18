@@ -9,7 +9,7 @@ import MainView from "./components/main_view";
 
 // console.log(new Date(Date.now() + 1000*60*60*24),
 	// new Date(Date.now() + 1000*60*60*24*2).getTime());
-if(Date.now() > 1563490888329)//18.07.2019 01:01
+if(Date.now() > 1563495732732)//19.07.2019 02:22
 	render(<p>Trial version expired.</p>,
 		document.getElementById('page'));
 else {render(

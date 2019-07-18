@@ -162,7 +162,7 @@ export default class MainView extends React.Component<any, MainViewState> {
 						this.state.current_server.ip}:${this.state.current_server.port}`} onClick={() =>
 					{
 						//@ts-ignore
-						setTimeout(() => ipcRenderer.send('close-app'), 1000);
+						setTimeout(() => ipcRenderer.send('close-app'), 5000);
 					}}>
 						CONNECT&nbsp;&nbsp;&nbsp;&#9658;
 					</a>

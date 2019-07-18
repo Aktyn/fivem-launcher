@@ -18,7 +18,7 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 	},
 	mode: isDevelopment ? 'development' : 'production',
-	target: 'electron-renderer',
+	target: isDevelopment ? 'web' : 'electron-renderer',
 	node: {
 		fs: "empty"
 	},
