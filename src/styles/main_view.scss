@@ -40,11 +40,34 @@ main {
 			color: #fff;
 			
 			transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+			transform: translateY(-150%);
+			animation: slide-from-top 0.6s 1s cubic-bezier(.36,.07,.19,.97) forwards;
 			
-			&:hover {
+			&:not(.disabled):hover {
 				color: #fff;
 				background-color: #4DB6AC;
 			}
+			&.disabled {
+				cursor: auto;
+			}
+			
+			&.offline {
+				background-color: #e57373;
+				&::after {
+					content: "OFFLINE";
+				}
+			}
+			&.online {
+				//background-color: #66BB6A;
+				&::after {
+					content: "ONLINE";
+				}
+			}
+			
+			/*&::after {
+				opacity: 0;
+				animation: slide-from-top 0.6s 1s ease-in-out forwards;
+			}*/
 		}
 		
 		.server-info {
@@ -63,7 +86,7 @@ main {
 				margin: 10px 0px;
 				
 				opacity: 0;
-				animation: fade-in 0.6s 1s ease-in-out forwards;
+				animation: fade-in 0.6s 2s ease-in-out forwards;
 			}
 			
 			.address {

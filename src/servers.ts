@@ -1,9 +1,15 @@
 import {ServerConfig} from "./common";
+import Config from './config.json';
 
-let _servers: ServerConfig[] = JSON.parse( localStorage.getItem('servers') || '[]' );
+let _servers: ServerConfig[] = Config.server ?
+	[Config.server] : JSON.parse( localStorage.getItem('servers') || '[]' );
 console.log(_servers);
 
 export default {
+	allowConfigure() {
+		return !Config.server;
+	},
+	
 	save(servers: ServerConfig[]) {
 		_servers = servers;
 		localStorage.setItem('servers', JSON.stringify(servers));
@@ -19,6 +25,9 @@ export default {
 	},
 	
 	getCurrent() {
+		if(Config.server)
+			return Config.server as unknown as ServerConfig;
+		
 		let current = JSON.parse( localStorage.getItem('current_server') || '{}' );
 		if(!current)
 			return null;

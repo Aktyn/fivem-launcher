@@ -6,10 +6,13 @@
 	"scripts": {
 		"dev": "webpack-dev-server --config ./webpack.config.js",
 		"publish": "set NODE_ENV=production&& webpack --config ./webpack.config.js -p",
+		"l:publish": "NODE_ENV=production webpack --config ./webpack.config.js -p",
 		"run_electron": "set NODE_ENV=dev && electron ./main",
+		"l:run_electron": "NODE_ENV=dev electron ./main",
 		"preview": "npm run publish && set NODE_ENV=dev && electron ./main",
 		"electron:rebuild": "npm rebuild --runtime=electron --target=3.0.7 --disturl=https://atom.io/download/atom-shell --abi=64",
-		"pack": "npm run publish && set NODE_ENV=production&& electron-builder --win --x64 portable"
+		"pack": "npm run publish && set NODE_ENV=production&& electron-builder --win --x64 portable",
+		"linux:pack": "npm run l:publish && NODE_ENV=production electron-builder --linux --x64 portable"
 	},
 	"repository": {
 		"type": "git",

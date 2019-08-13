@@ -133,7 +133,7 @@ export default class MainView extends React.Component<any, MainViewState> {
 					<img src={'data:image/png;base64,' + details.icon} alt={'server-icon'} />
 				}</span>
 				<span>{details.players.length}&nbsp;/&nbsp;{details.maxPlayers}</span>
-			</> : <div className={'offline'}>OFFLINE</div>}
+			</> : (Servers.allowConfigure() && <div className={'offline'}>OFFLINE</div>)}
 		</div>;
 	}
 	
@@ -151,13 +151,15 @@ export default class MainView extends React.Component<any, MainViewState> {
 		return <main>
 			<div className={'left-column'}>
 				<div>
-					<button className={'servers-btn'} onClick={(event) => {
+					{Servers.allowConfigure() ? <button className={'servers-btn'} onClick={(event) => {
 						this.setState({
 							show_settings: true,
 							rippleX: event.clientX,
 							rippleY: event.clientY
 						});
-					}}>CONFIGURE SERVERS</button>
+					}}>CONFIGURE SERVERS</button> : <button className={`servers-btn disabled ${
+						this.state.current_server_details ? 'online' : 'offline'
+					}`} />}
 				</div>
 				<div>{this.renderCurrentServerInfo()}</div>
 				<div>{this.state.current_server && this.state.current_server_details &&
