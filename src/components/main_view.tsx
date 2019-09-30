@@ -47,7 +47,7 @@ export default class MainView extends React.Component<any, MainViewState> {
 		current_server: Servers.getCurrent(),
 		current_server_details: null,
 		
-		show_settings: Servers.getList().length === 0,// || true,//|| true for tests
+		show_settings: Servers.getList().length === 0,
 		rippleX: 0,
 		rippleY: 0,
 		
@@ -96,11 +96,8 @@ export default class MainView extends React.Component<any, MainViewState> {
 				details_cache.set(api_url, {details: null, update_timestamp: Date.now()});
 			
 			let info = await getJSON(`${api_url}/info.json`);
-			//console.log(info);
-			//JSON.parse( await getJSON(`${api_url}/info.json`) );
+
 			let players: PlayerInfo[] = await getJSON(`${api_url}/players.json`);
-				//JSON.parse( await getJSON(`${api_url}/players.json`) );
-			//console.log(info['icon']);
 			
 			const details: ServerDetails = {
 				maxPlayers: parseInt(info['vars']['sv_maxClients']),
@@ -116,9 +113,7 @@ export default class MainView extends React.Component<any, MainViewState> {
 			
 			this.scheduleUpdate(current_server);
 		}
-		catch(e) {
-			//this.setState({current_server_details: null});
-		}
+		catch(e) {}
 	}
 	
 	private renderCurrentServerInfo() {
@@ -128,7 +123,6 @@ export default class MainView extends React.Component<any, MainViewState> {
 		return <div className={'server-info'}>
 			<div className={'address'}>{this.state.current_server.ip}:{this.state.current_server.port}</div>
 			{details ? <>
-				{/*<span className={'name'}>{details.name}</span>*/}
 				<span>{details.icon &&
 					<img src={'data:image/png;base64,' + details.icon} alt={'server-icon'} />
 				}</span>

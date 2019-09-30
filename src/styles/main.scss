@@ -4,9 +4,6 @@
     src: url('./Roboto-Regular.ttf');
 }
 
-/*cubic-bezier(.87,-.41,.19,1.44)*/
-/*cubic-bezier(.36,.07,.19,.97)*/
-
 body, html, textarea, input, button, div {
 	padding: 0px;
     margin: 0px;
@@ -56,7 +53,6 @@ button {
 	outline: none;
 	
 	border: none;
-	/*1px solid #CFD8DC;*/
     line-height: 100%;
 	font-weight: bold;
 	background: #fff;
@@ -82,7 +78,6 @@ button {
 	&:disabled {
 		background-color: #B0BEC5;
 		box-shadow: none;
-		// font-weight: normal;
 	}
 }
 

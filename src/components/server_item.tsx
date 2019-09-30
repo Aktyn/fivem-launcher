@@ -65,18 +65,6 @@ export default class ServerItem extends React.Component<ServerItemProps, ServerI
 			getJSON(url).then(data => {
 				if( !this.mounted )
 					return;
-				//console.log(data);
-				/*try {
-					var data = JSON.parse(res);
-				}
-				catch(e) {
-					console.error(e);
-					data = {
-						'vars': {
-							'sv_maxClients': 0
-						}
-					};
-				}*/
 				const info: ServerInfo = {
 					maxPlayers: parseInt(data['vars']['sv_maxClients']),
 					icon: data['icon'],

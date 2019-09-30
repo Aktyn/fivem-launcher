@@ -44,13 +44,10 @@
 		content: "⮞";
 		display: inline-block;
 		position: absolute;
-		//height: $indicatorSize;
-		//width: $indicatorSize;
 		font-size: 20px;
 		color: #80CBC4;
 		left: 0px;
 		opacity: 0;
-		//cubic-bezier(.36, .07, .19, .97)
 		transition: opacity 0.4s ease-in-out, transform 0.4s cubic-bezier(.87, -.41, .19, 1.44);
 	}
 	

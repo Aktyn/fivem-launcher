@@ -5,7 +5,6 @@ import Servers from '../servers';
 
 import '../styles/settings.scss';
 
-
 function validIP(str: string) {
 	return str.match(/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/i);
 }
