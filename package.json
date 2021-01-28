@@ -48,7 +48,7 @@
 		"autoprefixer": "^9.3.1",
 		"awesome-typescript-loader": "^5.2.1",
 		"css-loader": "^1.0.1",
-		"electron": "^5.0.6",
+		"electron": "^9.4.0",
 		"electron-builder": "^21.0.15",
 		"electron-rebuild": "^1.8.5",
 		"file-loader": "^2.0.0",
