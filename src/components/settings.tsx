@@ -12,10 +12,8 @@ function validIP(str: string) {
 interface SettingsProps {
 	rippleX: number;
 	rippleY: number;
-	
 	servers: ServerConfig[];
 	current_server: ServerConfig | null;
-	
 	onServersListUpdate: (list: ServerConfig[]) => void;
 	onServerSelected: (server: ServerConfig | null) => void;
 	onClose: () => void;
@@ -23,10 +21,8 @@ interface SettingsProps {
 
 interface SettingsState {
 	fade_settings: boolean;
-	
 	add_server: boolean;
 	add_server_error?: string;
-	
 	online_servers: number;
 }
 
@@ -34,25 +30,23 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 	private closeSettingsTm: NodeJS.Timeout | null = null;
 	private ip_input: HTMLInputElement | null = null;
 	private port_input: HTMLInputElement | null = null;
-	
+
 	state: SettingsState = {
 		fade_settings: false,
-		
 		add_server: false,
 		add_server_error: undefined,
-		
 		online_servers: 0
 	};
-	
+
 	constructor(props: SettingsProps) {
 		super(props);
 	}
-	
+
 	componentWillUnmount(): void {
 		if(this.closeSettingsTm)
 			clearTimeout(this.closeSettingsTm);
 	}
-	
+
 	close() {
 		this.setState({fade_settings: true});
 		this.closeSettingsTm = setTimeout(() => {
@@ -60,11 +54,11 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 				fade_settings: false,
 			});
 			this.props.onClose();
-			
+
 			this.closeSettingsTm = null;
 		}, 500) as never;//500ms must not be less then fading animation duration
 	}
-	
+
 	private addServer() {
 		if (!this.ip_input || !this.port_input)
 			return;
@@ -72,23 +66,22 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 			return this.setState({add_server_error: 'Incorrect ip address'});
 		if (this.port_input.value.length < 1)
 			return this.setState({add_server_error: 'Incorrect port'});
-		
-		const ip = this.ip_input.value.replace(/^\./, '')
-			.replace(/\.$/, '');
+
+		const ip = this.ip_input.value.replace(/^\./, '').replace(/\.$/, '');
 		const port = parseInt(this.port_input.value.trim());
-		
+
 		let existing_id = this.props.servers.findIndex(server => {
 			return !!(server.ip === ip && server.port === port);
 		});
-		
+
 		if (existing_id !== -1)
 			return this.setState({add_server_error: 'Server is already on the list'});
-		
+
 		const data: ServerConfig = {
 			ip,
 			port: parseInt(this.port_input.value)
 		};
-		
+
 		this.props.servers.push(data);
 		Servers.save(this.props.servers);
 		this.setState({
@@ -96,13 +89,13 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 			add_server: false
 		});
 		this.props.onServersListUpdate(this.props.servers);
-		
+
 		if( !this.props.current_server ) {
 			Servers.setCurrent(data);
 			this.props.onServerSelected(data);
 		}
 	}
-	
+
 	private renderServersList() {
 		return this.props.servers.map((server) => {
 			return <ServerItem onSelected={() => {
@@ -119,9 +112,9 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 					throw new Error('Cannot remove server that does not exists on the list');
 				this.props.servers.splice(server_index, 1);
 				Servers.save(this.props.servers);
-				
+
 				this.props.onServersListUpdate(this.props.servers);
-				
+
 				if(this.props.current_server === server) {
 					if(this.props.servers.length > 0) {
 						let next_i = Math.max(0, server_index-1);
@@ -130,7 +123,7 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 					else
 						this.props.onServerSelected(null);
 				}
-				
+
 				if(online) {
 					this.setState({
 						online_servers: this.state.online_servers-1
@@ -139,7 +132,7 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 			}} key={`${server.ip}:${server.port}`} data={server} current={this.props.current_server === server} />;
 		});
 	}
-	
+
 	private renderAddServerForm() {
 		return <div className={'add-server-form'}>
 			<div>
@@ -183,7 +176,7 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 			{this.state.add_server_error && <div className={'error'}>{this.state.add_server_error}</div>}
 		</div>;
 	}
-	
+
 	render() {
 		return <div className={`settings-container${this.state.fade_settings ? ' fading' : ''}`}>
 			<div className={'ripple'} style={{
