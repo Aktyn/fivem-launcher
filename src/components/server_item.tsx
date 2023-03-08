@@ -28,40 +28,40 @@ interface ServerItemState {
 
 export default class ServerItem extends React.Component<ServerItemProps, ServerItemState> {
 	private mounted = false;
-	
+
 	state: ServerItemState = {
 		info: null,
 		remove_prompt: false
 	};
-	
+
 	constructor(props: ServerItemProps) {
 		super(props);
 	}
-	
+
 	private get api_url() {
 		return `http://${this.props.data.ip}:${this.props.data.port}`;
 	}
-	
+
 	componentDidMount() {
 		this.mounted = true;
-		
+
 		try {
 			const url = `${this.api_url}/info.json`;
 			let cache = info_cache.get(url);
-			
+
 			if(cache) {
 				this.setState({
 					info: cache.info
 				});
 				if(cache.info)
 					this.props.onServerOnline();
-				
+
 				if( Date.now() - cache.update_timestamp < 1000*30 )
 					return;
 			}
 			else
 				info_cache.set(url, {info: null, update_timestamp: Date.now()});
-			
+
 			getJSON(url).then(data => {
 				if( !this.mounted )
 					return;
@@ -77,11 +77,11 @@ export default class ServerItem extends React.Component<ServerItemProps, ServerI
 		}
 		catch(e) {}
 	}
-	
+
 	componentWillUnmount() {
 		this.mounted = false;
 	}
-	
+
 	render() {
 		if(this.state.remove_prompt) {
 			return <div className={'server-item prompt'}>

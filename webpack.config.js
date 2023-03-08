@@ -20,7 +20,7 @@ module.exports = {
 	mode: isDevelopment ? 'development' : 'production',
 	target: isDevelopment ? 'web' : 'electron-renderer',
 	node: {
-		fs: "empty"
+		// fs: "empty"
 	},
 	devtool: isDevelopment && "source-map",
 	devServer: {
@@ -31,7 +31,6 @@ module.exports = {
 	resolve: {
 		extensions: ['.js', '.json', '.ts', '.tsx'],
 	},
-	
 	optimization: isDevelopment ? undefined : {
 		minimize: true,
 		minimizer: [
@@ -49,7 +48,6 @@ module.exports = {
 		/*splitChunks: {
 			//chunks: 'all',
 			automaticNameDelimiter: '-',
-			
 			cacheGroups: {
 				styles: {
 					name: 'styles',
@@ -63,7 +61,6 @@ module.exports = {
 			}
 		}*/
 	},
-	
 	module: {
 		rules: [
 			{
@@ -143,7 +140,6 @@ module.exports = {
 			},
 		],
 	},
-	
 	plugins: [
 		/*new webpack.DefinePlugin({
 			_GLOBALS_: JSON.stringify({
@@ -161,7 +157,6 @@ module.exports = {
 			minify: !isDevelopment,
 			template: './src/index.html',
 			filename: './index.html',
-			
 			//inject: 'head',
 		})
 	]
