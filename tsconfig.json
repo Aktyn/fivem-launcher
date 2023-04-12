@@ -1,10 +1,10 @@
 {
-	"include": [
-		"./src/**/*"
-	],
-	"exclude": [
-		"node_modules"
-	],
+	// "include": [
+	// 	"./src/**/*"
+	// ],
+	// "exclude": [
+	// 	"node_modules"
+	// ],
 	"compilerOptions": {
 		/* Basic Options */
 		"target": "ES5",                          /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */
@@ -18,8 +18,8 @@
 		"sourceMap": false,                     /* Generates corresponding '.map' file. */
 		// "outFile": "./",
 		"skipLibCheck": true,                      /* Concatenate and emit output to single file. */
-		"outDir": "./dist/",                           /* Redirect output structure to the directory. */
-		// "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+		"outDir": "./dist",                           /* Redirect output structure to the directory. */
+		"rootDir": "./src",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
 		// "composite": true,                     /* Enable project compilation */
 		// "removeComments": true,                /* Do not emit comments to output. */
 		// "noEmit": true,                        /* Do not emit outputs. */

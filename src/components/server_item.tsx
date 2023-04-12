@@ -44,38 +44,27 @@ export default class ServerItem extends React.Component<ServerItemProps, ServerI
 
 	componentDidMount() {
 		this.mounted = true;
-
 		try {
 			const url = `${this.api_url}/info.json`;
 			let cache = info_cache.get(url);
-
-			if(cache) {
-				this.setState({
-					info: cache.info
-				});
-				if(cache.info)
-					this.props.onServerOnline();
-
-				if( Date.now() - cache.update_timestamp < 1000*30 )
-					return;
-			}
-			else
-				info_cache.set(url, {info: null, update_timestamp: Date.now()});
-
+			if (cache) {
+				this.setState({ info: cache.info });
+				if(cache.info) this.props.onServerOnline();
+				if((Date.now() - cache.update_timestamp) < (1000 * 30)) return;
+			} else info_cache.set(url, {info: null, update_timestamp: Date.now()});
 			getJSON(url).then(data => {
-				if( !this.mounted )
-					return;
+				if (!this.mounted) return;
 				const info: ServerInfo = {
 					maxPlayers: parseInt(data['vars']['sv_maxClients']),
 					icon: data['icon'],
 				};
 				info_cache.set(url, {info, update_timestamp: Date.now()});
 				this.setState({info});
-				if(!cache)
-					this.props.onServerOnline();
+				if (!cache) this.props.onServerOnline();
 			}).catch(void 0);
-		}
-		catch(e) {}
+		} catch(e) {
+            console.error(e);
+        }
 	}
 
 	componentWillUnmount() {
@@ -96,14 +85,17 @@ export default class ServerItem extends React.Component<ServerItemProps, ServerI
 			this.state.info ? ' online' : ' offline'
 			}`} onClick={this.props.onSelected}>
 			<div className={'icon-span'}>
-				{this.state.info && this.state.info.icon &&
+				{
+                    (this.state.info && this.state.info.icon) &&
 					<img src={'data:image/png;base64,' + this.state.info.icon} alt={'server-icon'} />
 				}
 			</div>
-			<div style={{
-					fontWeight: 'bold'
-				}}>{trimString(this.state.info ? '' : 'offline', 25)}</div>
-			<div>{this.state.info && (this.state.info.maxPlayers + ' slots')}</div>
+			<div style={{ fontWeight: 'bold' }}>
+                {trimString(this.state.info ? '' : 'offline', 25)}
+            </div>
+			<div>
+                {this.state.info && (this.state.info.maxPlayers + ' slots')}
+            </div>
 			<div>{this.props.data.ip}:{this.props.data.port}</div>
 			<button className={'remove-btn'} onClick={(e) => {
 				this.setState({remove_prompt: true});
